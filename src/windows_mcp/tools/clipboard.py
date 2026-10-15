@@ -3,11 +3,11 @@
 from typing import Literal
 
 from mcp.types import ToolAnnotations
-from windows_mcp.infrastructure import with_analytics
+from windows_mcp.infrastructure import tool_dispatch
 from fastmcp import Context
 
 
-def register(mcp, *, get_desktop, get_analytics):
+def register(mcp, *, get_desktop):
     @mcp.tool(
         name="Clipboard",
         description='Copy/paste clipboard operations. Keywords: copy, paste, cut, clipboard, text transfer. Use mode="get" to read current clipboard content, mode="set" to set clipboard text.',
@@ -19,7 +19,7 @@ def register(mcp, *, get_desktop, get_analytics):
             openWorldHint=False,
         ),
     )
-    @with_analytics(get_analytics(), "Clipboard-Tool")
+    @tool_dispatch()
     def clipboard_tool(
         mode: Literal["get", "set"], text: str | None = None, ctx: Context = None,
     ) -> str:

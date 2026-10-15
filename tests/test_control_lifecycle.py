@@ -17,7 +17,6 @@ async def test_lifespan_wires_effective_settings(monkeypatch, enabled):
     owner = control.ControlCoordinator()
     cfg = ControlConfig(enabled=enabled, idle_timeout_seconds=2.5)
     calls = []
-    monkeypatch.setenv("ANONYMIZED_TELEMETRY", "false")
     monkeypatch.setattr(cli, "_mcp", None)
     monkeypatch.setattr(cli, "_control_notifier", None)
     monkeypatch.setattr(cli, "desktop", None)
@@ -61,7 +60,6 @@ async def test_lifespan_wires_effective_settings(monkeypatch, enabled):
 @pytest.mark.asyncio
 async def test_failed_enabled_start_cleans_up_without_disabling(monkeypatch):
     owner = control.ControlCoordinator()
-    monkeypatch.setenv("ANONYMIZED_TELEMETRY", "false")
     monkeypatch.setattr(cli, "_mcp", None)
     monkeypatch.setattr(cli, "_control_notifier", None)
     monkeypatch.setattr(cli, "desktop", None)

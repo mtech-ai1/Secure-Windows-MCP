@@ -23,7 +23,7 @@ class FakeMCP:
 
 def test_manifest_lists_every_registered_tool() -> None:
     mcp = FakeMCP()
-    register_all(mcp, get_desktop=lambda: None, get_analytics=lambda: None)
+    register_all(mcp, get_desktop=lambda: None)
 
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     listed = [tool["name"] for tool in manifest["tools"]]

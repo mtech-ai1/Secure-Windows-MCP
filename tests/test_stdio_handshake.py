@@ -77,11 +77,10 @@ SERVER_ARGS = ["-m", "windows_mcp", "serve", "--transport", "stdio"]
 def _server_env() -> dict[str, str]:
     """Environment for the server subprocess.
 
-    Telemetry and the UIA watchdog are disabled so the tests neither emit
-    analytics events nor depend on a live desktop session.
+    The UIA watchdog is disabled so the tests do not depend on a live
+    desktop session.
     """
     return os.environ | {
-        "ANONYMIZED_TELEMETRY": "false",
         "WINDOWS_MCP_WATCHDOG": "off",
     }
 

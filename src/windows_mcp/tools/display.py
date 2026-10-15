@@ -5,7 +5,7 @@ from typing import Any
 
 from fastmcp import Context
 from mcp.types import ToolAnnotations
-from windows_mcp.infrastructure import with_analytics
+from windows_mcp.infrastructure import tool_dispatch
 
 
 def _rect_to_dict(rect: Any) -> dict[str, int] | None:
@@ -25,7 +25,6 @@ def register(
     mcp: Any,
     *,
     get_desktop: Callable[[], Any],
-    get_analytics: Callable[[], Any],
 ) -> None:
     @mcp.tool(
         name="DisplayInventory",
@@ -42,7 +41,7 @@ def register(
             openWorldHint=False,
         ),
     )
-    @with_analytics(get_analytics(), "DisplayInventory-Tool")
+    @tool_dispatch()
     def display_inventory_tool(ctx: Context = None) -> list[dict[str, object]]:
         displays = get_desktop().get_displays()
         return [

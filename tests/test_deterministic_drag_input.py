@@ -41,7 +41,7 @@ class FakeDesktop:
 
 def _tools(desktop: FakeDesktop) -> dict[str, Callable]:
     mcp = FakeMCP()
-    register(mcp, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    register(mcp, get_desktop=lambda: desktop)
     return mcp.tools
 
 
@@ -67,7 +67,7 @@ def test_move_tool_rejects_invalid_drag_boolean_before_input() -> None:
 def test_move_tool_annotations_cover_drag_side_effects() -> None:
     desktop = FakeDesktop()
     mcp = FakeMCP()
-    register(mcp, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    register(mcp, get_desktop=lambda: desktop)
 
     annotations = mcp.tool_options["Move"]["annotations"]
 

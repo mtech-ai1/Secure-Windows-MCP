@@ -1,11 +1,11 @@
 """Scrape tool — fetch/scrape web page content."""
 
 from mcp.types import ToolAnnotations
-from windows_mcp.infrastructure import run_uia_affine, with_analytics
+from windows_mcp.infrastructure import run_uia_affine, tool_dispatch
 from fastmcp import Context
 
 
-def register(mcp, *, get_desktop, get_analytics):
+def register(mcp, *, get_desktop):
     @mcp.tool(
         name="Scrape",
         description="Fetch/scrape web page content from a URL. Keywords: scrape, fetch, browse, web, URL, extract, download, read webpage. By default (use_dom=False), performs a lightweight HTTP request to the URL and returns a clean LLM-processed summary of the page to avoid context bloat. Provide query to focus extraction on specific information. Set use_dom=True to extract from the active browser tab's DOM instead (required when site blocks HTTP requests; supported in Chrome, Edge, and Firefox). Set use_sampling=False to get raw content without LLM processing.",
@@ -17,7 +17,7 @@ def register(mcp, *, get_desktop, get_analytics):
             openWorldHint=True,
         ),
     )
-    @with_analytics(get_analytics(), "Scrape-Tool")
+    @tool_dispatch()
     async def scrape_tool(
         url: str,
         query: str | None = None,
@@ -34,7 +34,7 @@ def register(mcp, *, get_desktop, get_analytics):
         if not use_dom:
             content = desktop.scrape(url)
         else:
-            # Scrape is async, so with_analytics cannot move the whole body to the
+            # Scrape is async, so tool_dispatch cannot move the whole body to the
             # synchronous UIA lane.  Hop only the DOM/UIAutomation capture itself.
             desktop_state = await run_uia_affine(
                 desktop.get_state,
