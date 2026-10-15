@@ -5,12 +5,12 @@ from typing import Literal
 
 from mcp.types import ToolAnnotations
 from windows_mcp.desktop.utils import as_bool as _as_bool
-from windows_mcp.infrastructure import with_analytics
+from windows_mcp.infrastructure import tool_dispatch
 from windows_mcp import filesystem
 from fastmcp import Context
 
 
-def register(mcp, *, get_desktop, get_analytics):
+def register(mcp, *, get_desktop):
     @mcp.tool(
         name='FileSystem',
         description="Manages file system operations with eight modes: 'read' (read text file contents with optional line offset/limit), 'write' (create or overwrite a file, set append=True to append), 'copy' (copy file or directory to destination), 'move' (move or rename file/directory), 'delete' (delete file or directory, set recursive=True for non-empty dirs), 'list' (list directory contents with optional pattern filter), 'search' (find files matching a glob pattern), 'info' (get file/directory metadata like size, dates, type). Relative paths are resolved from the user's Desktop folder. Use absolute paths to access other locations.",
@@ -22,7 +22,7 @@ def register(mcp, *, get_desktop, get_analytics):
             openWorldHint=False,
         ),
     )
-    @with_analytics(get_analytics(), "FileSystem-Tool")
+    @tool_dispatch()
     def file_system_tool(
         mode: Literal['read', 'write', 'copy', 'move', 'delete', 'list', 'search', 'info'],
         path: str,

@@ -5,7 +5,7 @@ from mcp.types import ToolAnnotations
 from windows_mcp.desktop.control import get_controller
 
 
-def register(mcp, *, get_desktop, get_analytics):
+def register(mcp, *, get_desktop):
     @mcp.tool(
         name="ControlStatus",
         description="Get desktop control owner, enabled state, configured idle timeout and remaining user idle wait in seconds. Settings are read-only and changes require a server restart.",

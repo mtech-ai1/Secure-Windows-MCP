@@ -64,7 +64,6 @@ def _echo_section(title: str) -> None:
 
 desktop: Any | None = None
 watchdog: Any | None = None
-analytics: Any | None = None
 screen_size: Any | None = None
 _mcp: FastMCP | None = None
 _control_config = ControlConfig()
@@ -78,10 +77,6 @@ thus enabling to operate the desktop on the user's behalf.
 
 def _get_desktop():
     return desktop
-
-
-def _get_analytics():
-    return analytics
 
 
 def _http_middleware(
@@ -260,7 +255,6 @@ def _build_mcp() -> FastMCP:
         return _mcp
 
     try:
-        from windows_mcp.infrastructure import PostHogAnalytics
         from windows_mcp.desktop.service import Desktop
         from windows_mcp.tools import register_all
     except ModuleNotFoundError as exc:
@@ -324,12 +318,10 @@ def _build_mcp() -> FastMCP:
     @asynccontextmanager
     async def lifespan(app: FastMCP):
         """Runs initialization code before the server starts and cleanup code after it shuts down."""
-        global desktop, watchdog, analytics, screen_size
+        global desktop, watchdog, screen_size
         nonlocal control_loop
         control_loop = asyncio.get_running_loop()
 
-        if os.getenv("ANONYMIZED_TELEMETRY", "true").lower() != "false":
-            analytics = PostHogAnalytics()
         desktop = Desktop()
         screen_size = desktop.get_screen_size()
 
@@ -359,16 +351,14 @@ def _build_mcp() -> FastMCP:
                     if controller.enabled:
                         control_overlay.stop()
                 finally:
-                    logger.debug("Shutting down: stopping watchdog and analytics")
+                    logger.debug("Shutting down: stopping watchdog")
                     if watchdog:
                         watchdog.stop()
-                    if analytics:
-                        await analytics.close()
                     control_loop = None
 
     _mcp = FastMCP(name="windows-mcp", instructions=instructions, lifespan=lifespan)
     _mcp.add_middleware(ControlToolGate(controller, notifier))
-    register_all(_mcp, get_desktop=_get_desktop, get_analytics=_get_analytics)
+    register_all(_mcp, get_desktop=_get_desktop)
     return _mcp
 
 

@@ -45,7 +45,6 @@ def _mcp(desktop: FakeDesktop | None = None) -> FakeMCP:
     app.register(
         mcp,
         get_desktop=lambda: resolved_desktop,
-        get_analytics=lambda: None,
     )
     return mcp
 

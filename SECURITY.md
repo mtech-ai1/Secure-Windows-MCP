@@ -268,24 +268,10 @@ Windows-MCP does not implement comprehensive audit logging by default. For compl
 
 ### Telemetry and Data Privacy
 
-- Windows-MCP collects anonymous usage data to help improve the MCP server.
-- **We collect:**
-  - Tool execution status (success/failure)
-  - Execution duration
-  - Tool name
-  - Client name and version (e.g., Claude Desktop, etc.)
-  - Anonymized session IDs
-- **We DO NOT collect:**
-  - **Tool arguments** (text typed, coordinates, file paths, etc.)
-  - **Tool outputs** (screenshots, commands results, page content, etc.)
-  - **Personal Information**:
-    - **No User Identifiers** beyond a randomly generated UUID stored locally.
-- **Privacy Considerations:**
-  - **Error Messages**: In rare cases, system error messages (which are captured) may include local file paths if they are part of the OS error description.
-  - Telemetry is **enabled by default** to help maintainers understand usage patterns and prioritize features, but can be disabled at any time by setting the `ANONYMIZED_TELEMETRY` environment variable to `false`.
-  - Windows-MCP processes all commands locally on your machine.
-  - Screenshots and state captures remain strictly on your local system.
-  - Web scraping may expose browsing activity to the target websites.
+- This fork collects **no telemetry**: no usage events, error reports or user IDs are sent anywhere.
+- Windows-MCP processes all commands locally on your machine.
+- Screenshots and state captures are returned only to the connected MCP client.
+- Web scraping may expose browsing activity to the target websites; disable the `Scrape` tool if that is not wanted.
 
 ## Tool Annotations Reference
 

@@ -1,4 +1,4 @@
-"""Infrastructure layer — cross-cutting concerns: auth, security, analytics, config, oauth."""
+"""Infrastructure layer — cross-cutting concerns: auth, security, dispatch, config, oauth."""
 
 from windows_mcp.infrastructure.auth import AuthKeyMiddleware, OAuthOnlyMiddleware, is_loopback_host
 from windows_mcp.infrastructure.security import (
@@ -12,7 +12,7 @@ from windows_mcp.infrastructure.thread_affinity import (
     run_uia_affine,
     uia_thread_id,
 )
-from windows_mcp.infrastructure.analytics import Analytics, PostHogAnalytics, with_analytics
+from windows_mcp.infrastructure.dispatch import tool_dispatch
 from windows_mcp.infrastructure.config import (
     WindowsMCPConfig,
     ServerConfig,
@@ -38,9 +38,7 @@ __all__ = [
     "is_uia_thread",
     "run_uia_affine",
     "uia_thread_id",
-    "Analytics",
-    "PostHogAnalytics",
-    "with_analytics",
+    "tool_dispatch",
     "WindowsMCPConfig",
     "ServerConfig",
     "SecurityConfig",

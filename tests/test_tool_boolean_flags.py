@@ -30,7 +30,7 @@ class FakeMCP:
 
 def _tools(register) -> dict[str, Callable]:
     mcp = FakeMCP()
-    register(mcp, get_desktop=lambda: MagicMock(), get_analytics=lambda: None)
+    register(mcp, get_desktop=lambda: MagicMock())
     return mcp.tools
 
 
@@ -60,7 +60,7 @@ def test_unparsable_press_ctrl_selects_nothing():
     desktop = MagicMock()
     desktop.desktop_state = object()
     mcp = FakeMCP()
-    register_multi(mcp, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    register_multi(mcp, get_desktop=lambda: desktop)
 
     with pytest.raises(ValueError, match="press_ctrl must be true or false"):
         asyncio.run(mcp.tools["MultiSelect"](locs=[[10, 10], [40, 40]], press_ctrl="yes"))

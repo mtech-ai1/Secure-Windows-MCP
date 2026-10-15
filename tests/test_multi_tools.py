@@ -59,7 +59,7 @@ def make_desktop_with_tree_state():
 
 def register_tools(desktop):
     mcp = FakeMCP()
-    register(mcp, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    register(mcp, get_desktop=lambda: desktop)
     return mcp.tools
 
 

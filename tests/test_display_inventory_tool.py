@@ -38,7 +38,7 @@ class FakeDesktop:
 
 def test_display_inventory_returns_display_dpi_metadata() -> None:
     mcp = FakeMCP()
-    display_tool_module.register(mcp, get_desktop=FakeDesktop, get_analytics=lambda: None)
+    display_tool_module.register(mcp, get_desktop=FakeDesktop)
 
     result = asyncio.run(mcp.tools["DisplayInventory"]())
 

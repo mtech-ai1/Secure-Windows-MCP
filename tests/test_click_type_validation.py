@@ -45,7 +45,7 @@ class FakeDesktop:
 
 def _tools(desktop: FakeDesktop) -> dict[str, Callable]:
     mcp = FakeMCP()
-    register(mcp, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    register(mcp, get_desktop=lambda: desktop)
     return mcp.tools
 
 

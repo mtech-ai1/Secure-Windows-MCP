@@ -103,7 +103,7 @@ async def test_app_tool_reports_switch_failure_as_mcp_error(
         lambda: sample_window.handle if foreground_matches else 999,
     )
     server = FastMCP("switch-foreground-test")
-    app.register(server, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    app.register(server, get_desktop=lambda: desktop)
 
     async with Client(server) as client:
         result = await client.call_tool(

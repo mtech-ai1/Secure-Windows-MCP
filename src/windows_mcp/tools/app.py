@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Literal
 
 from mcp.types import ToolAnnotations
-from windows_mcp.infrastructure import with_analytics
+from windows_mcp.infrastructure import tool_dispatch
 from fastmcp import Context
 
 
@@ -67,7 +67,7 @@ def _launch_executable(
     )
 
 
-def register(mcp, *, get_desktop, get_analytics):
+def register(mcp, *, get_desktop):
     @mcp.tool(
         name="App",
         description=(
@@ -85,7 +85,7 @@ def register(mcp, *, get_desktop, get_analytics):
             openWorldHint=False,
         ),
     )
-    @with_analytics(get_analytics(), "App-Tool", run_sync_in_thread=False)
+    @tool_dispatch(run_sync_in_thread=False)
     def app_tool(
         mode: Literal["launch", "launch_executable", "resize", "switch"] = "launch",
         name: str | None = None,

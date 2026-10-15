@@ -57,7 +57,7 @@ def test_dom_scrape_reports_scroll_position(
 ) -> None:
     mcp = FakeMCP()
     desktop = FakeDesktop(vertical_scroll_percent)
-    scrape_tool_module.register(mcp, get_desktop=lambda: desktop, get_analytics=lambda: None)
+    scrape_tool_module.register(mcp, get_desktop=lambda: desktop)
 
     result = asyncio.run(
         mcp.tools["Scrape"](url="https://example.com", use_dom=True, use_sampling=False)

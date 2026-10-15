@@ -40,7 +40,7 @@ def test_shell_tool_error_is_error_true(monkeypatch, mcp):
     from windows_mcp.tools.shell import register as shell_tool_reg
     from windows_mcp.powershell import PowerShellExecutor
 
-    shell_tool_reg(mcp, get_desktop=lambda: None, get_analytics=lambda: None)
+    shell_tool_reg(mcp, get_desktop=lambda: None)
     error_msg = "command rejected"
 
     def _raise(*args, **kwargs):  # noqa: ARG001
@@ -57,7 +57,7 @@ def test_clipboard_tool_error_is_error_true(monkeypatch, mcp):
     from windows_mcp.tools.clipboard import register as clipboard_tool_reg
     import win32clipboard
 
-    clipboard_tool_reg(mcp, get_desktop=lambda: None, get_analytics=lambda: None)
+    clipboard_tool_reg(mcp, get_desktop=lambda: None)
     error_msg = "clipboard locked"
 
     def _raise(*args, **kwargs):
@@ -74,7 +74,7 @@ def test_registry_tool_error_is_error_true(monkeypatch, mcp):
     from windows_mcp.tools.registry import register as registry_tool_reg
     from windows_mcp import registry
 
-    registry_tool_reg(mcp, get_desktop=lambda: None, get_analytics=lambda: None)
+    registry_tool_reg(mcp, get_desktop=lambda: None)
 
     error_msg = "access denied"
 

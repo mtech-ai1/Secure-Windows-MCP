@@ -4,7 +4,7 @@ import json
 
 from mcp.types import ToolAnnotations
 from windows_mcp.desktop.utils import as_bool as _as_bool
-from windows_mcp.infrastructure import with_analytics
+from windows_mcp.infrastructure import tool_dispatch
 from fastmcp import Context
 
 
@@ -15,7 +15,7 @@ def _as_loc(value: list | str | None) -> list | None:
     return json.loads(value)
 
 
-def register(mcp, *, get_desktop, get_analytics):
+def register(mcp, *, get_desktop):
     @mcp.tool(
         name="MultiSelect",
         description="Selects multiple items such as files, folders, or checkboxes if press_ctrl=True, or performs multiple clicks if False. Pass locs (list of coordinates) or labels (list of UI element labels/ids).",
@@ -27,7 +27,7 @@ def register(mcp, *, get_desktop, get_analytics):
             openWorldHint=False,
         ),
     )
-    @with_analytics(get_analytics(), "Multi-Select-Tool", run_sync_in_thread=False)
+    @tool_dispatch(run_sync_in_thread=False)
     def multi_select_tool(
         locs: list[list[int]] | str | None = None,
         labels: list[int] | str | None = None,
@@ -65,7 +65,7 @@ def register(mcp, *, get_desktop, get_analytics):
             openWorldHint=False,
         ),
     )
-    @with_analytics(get_analytics(), "Multi-Edit-Tool", run_sync_in_thread=False)
+    @tool_dispatch(run_sync_in_thread=False)
     def multi_edit_tool(
         locs: list[list] | str | None = None,
         labels: list[list] | str | None = None,

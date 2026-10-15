@@ -33,7 +33,6 @@
       "env": {
         "UV_NO_SYNC": "1",
         "UV_CACHE_DIR": "${__dirname}/.uv-cache",
-        "ANONYMIZED_TELEMETRY": "${user_config.anonymized_telemetry}",
         "WINDOWS_MCP_PROFILE_SNAPSHOT": "${user_config.profile_snapshot}",
         "WINDOWS_MCP_SCREENSHOT_BACKEND": "${user_config.screenshot_backend}",
         "WINDOWS_MCP_DEBUG": "${user_config.debug}",
@@ -42,13 +41,6 @@
     }
   },
   "user_config": {
-    "anonymized_telemetry": {
-      "type": "boolean",
-      "title": "Anonymized Telemetry",
-      "description": "Windows-MCP collects basic usage data to help improve the MCP server. No personal information, tool arguments, or tool outputs are tracked.",
-      "required": false,
-      "default": true
-    },
     "profile_snapshot": {
       "type": "boolean",
       "title": "Profile Snapshot Performance",
@@ -117,7 +109,7 @@
     },
     {
       "name": "Scroll",
-      "description": "Scrolls at coordinates [x, y], a UI element's label/id, or current mouse position if loc=None. Type: vertical (default) or horizontal. Direction: up/down for vertical, left/right for horizontal. wheel_times controls amount (1 wheel \u2248 3-5 lines). Use for navigating long content, lists, and web pages."
+      "description": "Scrolls at coordinates [x, y], a UI element's label/id, or current mouse position if loc=None. Type: vertical (default) or horizontal. Direction: up/down for vertical, left/right for horizontal. wheel_times controls amount (1 wheel ≈ 3-5 lines). Use for navigating long content, lists, and web pages."
     },
     {
       "name": "Move",
